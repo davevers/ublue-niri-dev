@@ -39,15 +39,38 @@ find /ctx/custom/ujust -iname '*.just' -exec printf "\n\n" \; -exec cat {} \; >>
 mkdir -p /etc/flatpak/preinstall.d/
 cp /ctx/custom/flatpaks/*.preinstall /etc/flatpak/preinstall.d/
 
+# Overlay system files onto root
+cp -r /ctx/custom/system_files/* /
+
 echo "::endgroup::"
 
 echo "::group:: Install Packages"
 
 # Install packages using dnf5
 # Example: dnf5 install -y tmux
+dnf5 install -y \
+  niri \
+  cava \
+  qt6ct \
+  qt6-qtmultimedia \
+  xdg-desktop-portal-gnome \
+  xdg-desktop-portal-gtk \
+  gnome-keyring \
+  xwayland-satellite
 
 # Example using COPR with isolated pattern:
 # copr_install_isolated "ublue-os/staging" package-name
+copr_install_isolated "avengemedia/danklinux" \
+  cliphist \
+  dgop \
+  quickshell \
+  dms-greeter \
+  cava \
+  danksearch \
+  ghostty \
+  matugen
+
+copr_install_isolated "avengemedia/dms" dms
 
 echo "::endgroup::"
 
@@ -55,6 +78,9 @@ echo "::group:: System Configuration"
 
 # Enable/disable systemd services
 systemctl enable podman.socket
+systemctl enable greetd.service
+systemctl --global add-wants niri.service dms
+
 # Example: systemctl mask unwanted-service
 
 echo "::endgroup::"
