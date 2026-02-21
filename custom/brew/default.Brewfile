@@ -1,7 +1,5 @@
 # Default Brewfile for bluepilot
 # Add your favorite brew packages here
-# 
-# Examples:
 
 # Modern CLI tools
 brew "bat"        # cat with syntax highlighting
@@ -12,11 +10,14 @@ brew "rg"         # ripgrep - faster grep
 # Development tools
 brew "gh"         # GitHub CLI
 brew "git"        # Git version control
+brew "lazygit"
 
 # Shell enhancements  
 brew "starship"   # Cross-shell prompt
 brew "zoxide"     # Smarter cd command
+brew "atuin"
 
 # Utilities
 brew "htop"       # Interactive process viewer
 brew "tmux"       # Terminal multiplexer
+brew "yazi"

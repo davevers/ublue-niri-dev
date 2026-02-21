@@ -42,35 +42,50 @@ cp /ctx/custom/flatpaks/*.preinstall /etc/flatpak/preinstall.d/
 # Overlay system files onto root
 cp -r /ctx/custom/system_files/* /
 
+# Overlay brew system files onto root
+cp -r /ctx/oci/brew/* /
+
 echo "::endgroup::"
 
-echo "::group:: Install Packages"
+echo "::group:: Install Niri and dependencies"
 
-# Install packages using dnf5
-# Example: dnf5 install -y tmux
-dnf5 install -y \
+dnf5 install -y --setopt=install_weak_deps=False\
   niri \
-  cava \
-  qt6ct \
-  qt6-qtmultimedia \
   xdg-desktop-portal-gnome \
   xdg-desktop-portal-gtk \
   gnome-keyring \
   xwayland-satellite
 
-# Example using COPR with isolated pattern:
-# copr_install_isolated "ublue-os/staging" package-name
+echo "::endgroup::"
+
+echo "::group:: Install utilities and other packages"
+
 copr_install_isolated "avengemedia/danklinux" \
   cliphist \
   dgop \
   quickshell \
   dms-greeter \
-  cava \
   danksearch \
   ghostty \
   matugen
 
 copr_install_isolated "avengemedia/dms" dms
+
+dnf5 config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+dnf5 config-manager setopt tailscale-stable.enabled=0
+dnf5 -y install --enablerepo='tailscale-stable' tailscale
+dnf5 -y install \
+  cava \
+  default-fonts-core-emoji \
+  google-noto-color-emoji-fonts \
+  google-noto-emoji-fonts \
+  glibc-all-langpacks \
+  default-fonts \
+  flatpak \
+  fish \
+  qt6ct \
+  qt6-qtmultimedia \
+  zsh
 
 echo "::endgroup::"
 
@@ -79,7 +94,10 @@ echo "::group:: System Configuration"
 # Enable/disable systemd services
 systemctl enable podman.socket
 systemctl enable greetd.service
+systemctl enable tailscaled.service
+systemctl enable brew-setup.service
 systemctl --global add-wants niri.service dms
+systemctl --global enable dsearch
 
 # Example: systemctl mask unwanted-service
 
