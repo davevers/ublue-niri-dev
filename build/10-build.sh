@@ -97,6 +97,7 @@ systemctl enable greetd.service
 systemctl enable tailscaled.service
 systemctl enable brew-setup.service
 systemctl --global add-wants niri.service dms
+systemctl --global enable dsearch
 
 # Example: systemctl mask unwanted-service
 
