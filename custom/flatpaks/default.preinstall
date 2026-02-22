@@ -3,24 +3,33 @@
 # Format: INI file with [Flatpak Preinstall NAME] groups
 # See: https://docs.flatpak.org/en/latest/flatpak-command-reference.html#flatpak-preinstall
 
-# Web Browsers
-[Flatpak Preinstall org.mozilla.firefox]
-Branch=stable
-
 # System Utilities
 [Flatpak Preinstall com.github.tchx84.Flatseal]
 Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall org.gnome.TextEditor]
+Branch=stable
+IsRuntime=false
 
 [Flatpak Preinstall io.github.flattool.Warehouse]
 Branch=stable
+IsRuntime=false
 
 [Flatpak Preinstall io.gitlab.adhami3310.Impression]
 Branch=stable
+IsRuntime=false
 
 # Universal Blue Specific
 [Flatpak Preinstall com.ranfdev.DistroShelf]
 Branch=stable
+IsRuntime=false
 
 [Flatpak Preinstall io.github.kolunmi.Bazaar]
 Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall io.github.flattool.Ignition]
+Branch=stable
+IsRuntime=false
 
