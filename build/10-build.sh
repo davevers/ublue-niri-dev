@@ -45,6 +45,17 @@ cp -r /ctx/custom/system_files/* /
 # Overlay brew system files onto root
 cp -r /ctx/oci/brew/* /
 
+# Remove when flatpak is updated to 1.17.x upstream
+dnf5 -y copr enable ublue-os/flatpak-test
+dnf5 -y copr disable ublue-os/flatpak-test
+dnf5 -y --repo=copr:copr.fedorainfracloud.org:ublue-os:flatpak-test swap flatpak flatpak
+dnf5 -y --repo=copr:copr.fedorainfracloud.org:ublue-os:flatpak-test swap flatpak-libs flatpak-libs
+dnf5 -y --repo=copr:copr.fedorainfracloud.org:ublue-os:flatpak-test swap flatpak-session-helper flatpak-session-helper
+dnf5 -y --repo=copr:copr.fedorainfracloud.org:ublue-os:flatpak-test install flatpak-debuginfo flatpak-libs-debuginfo flatpak-session-helper-debuginfo
+cp /ctx/oci/common/shared/usr/lib/systemd/system/flatpak-preinstall.service /usr/lib/systemd/system/
+systemctl enable flatpak-preinstall.service
+
+
 echo "::endgroup::"
 
 echo "::group:: Install Niri and dependencies"
@@ -66,7 +77,6 @@ copr_install_isolated "avengemedia/danklinux" \
   quickshell \
   dms-greeter \
   danksearch \
-  ghostty \
   matugen
 
 copr_install_isolated "avengemedia/dms" dms
@@ -81,8 +91,10 @@ dnf5 -y install \
   google-noto-emoji-fonts \
   glibc-all-langpacks \
   default-fonts \
-  flatpak \
+  distrobox \
   fish \
+  kitty \
+  nautilus \
   qt6ct \
   qt6-qtmultimedia \
   zsh
