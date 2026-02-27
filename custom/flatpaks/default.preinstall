@@ -33,3 +33,7 @@ IsRuntime=false
 Branch=stable
 IsRuntime=false
 
+# Applications
+[Flatpak Preinstall md.obsidian.Obsidian]
+Branch=stable
+IsRuntime=false

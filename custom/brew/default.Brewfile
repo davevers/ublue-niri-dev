@@ -6,6 +6,8 @@ brew "bat"        # cat with syntax highlighting
 brew "eza"        # Modern replacement for ls
 brew "fd"         # Simple, fast alternative to find
 brew "rg"         # ripgrep - faster grep
+brew "atuin"
+brew "zellij"
 
 # Development tools
 brew "gh"         # GitHub CLI
@@ -15,7 +17,6 @@ brew "lazygit"
 # Shell enhancements  
 brew "starship"   # Cross-shell prompt
 brew "zoxide"     # Smarter cd command
-brew "atuin"
 
 # Utilities
 brew "htop"       # Interactive process viewer

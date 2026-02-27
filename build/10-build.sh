@@ -85,6 +85,7 @@ dnf5 config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fe
 dnf5 config-manager setopt tailscale-stable.enabled=0
 dnf5 -y install --enablerepo='tailscale-stable' tailscale
 dnf5 -y install \
+  adwaita-fonts-all \
   cava \
   default-fonts-core-emoji \
   google-noto-color-emoji-fonts \
